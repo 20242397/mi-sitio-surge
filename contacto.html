@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | Fher Reyes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bg-texture"></div>
+
+    <nav>
+    <a href="index.html">Home</a>
+    <a href="valores.html">Valores</a>
+    <a href="skills.html">Skills</a>
+    <a href="proyectos.html">Proyectos</a>
+    <a href="contacto.html">Contacto</a>
+</nav>
+
+    <header>
+        <h1>Contacto</h1>
+        <p>Hablemos sobre ideas, proyectos o colaboraciones</p>
+    </header>
+
+    <main class="container">
+        <div class="card">
+            <form id="miFormulario" class="contact-form" action="https://formspree.io/f/TU_ID_DE_FORMSPREE" method="POST">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" name="nombre" placeholder="Tu nombre" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Apellido</label>
+                    <input type="text" name="apellido" placeholder="Tu apellido" required>
+                </div>
+
+                <div class="full-width">
+                    <label>Correo electrónico</label>
+                    <input type="email" name="email" placeholder="correo@ejemplo.com" required>
+                </div>
+
+                <div class="full-width">
+                    <label>Descripción del servicio o proyecto</label>
+                    <textarea name="mensaje" rows="5" placeholder="¿En qué puedo ayudarte?" required></textarea>
+                </div>
+
+                <div class="full-width">
+                    <button type="submit">Enviar mensaje</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="modalGracias" class="modal">
+            <div class="card modal-content">
+                <span class="value-icon">🚀</span>
+                <h2>¡Muchas gracias!</h2>
+                <p>Tu mensaje ha sido enviado con éxito. Me pondré en contacto contigo pronto.</p>
+                <button onclick="cerrarModal()" class="btn-git" style="margin-top: 20px; width: auto;">Cerrar</button>
+            </div>
+        </div>
+
+        <div class="back-home-container">
+            <a class="back-home" href="index.html">← Volver al Home</a>
+        </div>
+    </main>
+
+    <div class="footer-space"></div>
+
+    <script>
+        const form = document.getElementById('miFormulario');
+        const modal = document.getElementById('modalGracias');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            
+            const response = await fetch(this.action, {
+                method: this.method,
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (response.ok) {
+                this.reset();
+                modal.style.display = 'flex';
+            } else {
+                alert('Ocurrió un error. Por favor, intenta de nuevo.');
+            }
+        });
+
+        function cerrarModal() {
+            modal.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
